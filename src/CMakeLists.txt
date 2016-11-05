@@ -5,19 +5,17 @@ project(my_cmake_project)
 set(MY_CMAKE_PROJECT_VERSION_MAJOR 1)
 set(MY_CMAKE_PROJECT_VERSION_MINOR 0)
 
-# configure a header file to pass some of the CMake settings
-# to the source code
-configure_file(
-  "${PROJECT_SOURCE_DIR}/Config.h.in"
-  "${PROJECT_BINARY_DIR}/Config.h"
-  )
-
 # add the binary tree to the search path for include files
-# so that we will find TutorialConfig.h
+# so that we will find Config.h
 include_directories("${PROJECT_BINARY_DIR}")
 
+# compile and include Logger Library
 include_directories("${PROJECT_SOURCE_DIR}/logger")
-add_subdirectory(logger)
+add_library(Logger "${PROJECT_SOURCE_DIR}/logger/logger.cpp")
 
-add_executable(my_cmake_project main.cpp)
-target_link_libraries (my_cmake_project Logger)
+# configure a header file to pass some of the CMake settings
+# to the source code
+configure_file("${PROJECT_SOURCE_DIR}/Config.h.in" "${PROJECT_BINARY_DIR}/Config.h")
+
+add_executable(my_cmake_project "${PROJECT_SOURCE_DIR}/main.cpp")
+target_link_libraries(my_cmake_project Logger)
