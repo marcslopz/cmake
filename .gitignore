@@ -1,1 +1,4 @@
-debug/
+/build/
+/.cproject
+/.project
+/.settings/
