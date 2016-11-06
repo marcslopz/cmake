@@ -19,3 +19,12 @@ configure_file("${PROJECT_SOURCE_DIR}/src/Config.h.in" "${PROJECT_BINARY_DIR}/Co
 
 add_executable(my_cmake_project "${PROJECT_SOURCE_DIR}/src/main.cpp")
 target_link_libraries(my_cmake_project Logger)
+
+# install Logger library
+install(TARGETS Logger DESTINATION lib)
+install(FILES "${PROJECT_SOURCE_DIR}/src/logger/logger.h" DESTINATION include)
+
+# install executable file
+install(TARGETS my_cmake_project DESTINATION bin)
+install(FILES "${PROJECT_BINARY_DIR}/Config.h" DESTINATION include)
+
